@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"gulp-preprocess",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "gulp-preprocess",
+    "description": "api documentation for [gulp-preprocess (v2.0.0)](http://github.com/jas/gulp-preprocess) [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-preprocess.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-preprocess) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess)",
     "devDependencies": {
-        "gulp-preprocess": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "gulp-preprocess": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-gulp-preprocess",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-gulp-preprocess",
+    "keywords": [
+        "documentation",
+        "gulp-preprocess"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_gulp_preprocess.js",
+    "name": "npmdoc-gulp-preprocess",
+    "nameAlias": "npmdoc_gulp_preprocess",
+    "nameOriginal": "npmdoc-gulp-preprocess",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-gulp-preprocess.git"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
