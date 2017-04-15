@@ -61,12 +61,99 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-preprocess">module gulp-preprocess</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-preprocess.gulp-preprocess">
+            function <span class="apidocSignatureSpan"></span>gulp-preprocess
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-preprocess.toString">
+            function <span class="apidocSignatureSpan">gulp-preprocess.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-preprocess" id="apidoc.module.gulp-preprocess">module gulp-preprocess</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-preprocess.gulp-preprocess" id="apidoc.element.gulp-preprocess.gulp-preprocess">
+        function <span class="apidocSignatureSpan"></span>gulp-preprocess
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-preprocess = function (options) {
+  var opts    = _.merge({}, options);
+  var context = _.merge({}, process.env, opts.context);
+
+  function ppStream(file, callback) {
+    var contents, extension;
+
+    // TODO: support streaming files
+    if (file.isNull()) return callback(null, file); // pass along
+    if (file.isStream()) return callback(new Error(&#x22;gulp-preprocess: Streaming not supported&#x22;));
+
+    context.src = file.path;
+    context.srcDir = opts.includeBase || path.dirname(file.path);
+    context.NODE_ENV = context.NODE_ENV || &#x27;development&#x27;;
+
+    extension = _.isEmpty(opts.extension) ? getExtension(context.src) : opts.extension;
+
+    contents = file.contents.toString(&#x27;utf8&#x27;);
+    contents = pp.preprocess(contents, context, extension);
+    file.contents = new Buffer(contents);
+
+    callback(null, file);
+  }
+
+  return map(ppStream);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-preprocess.toString" id="apidoc.element.gulp-preprocess.toString">
+        function <span class="apidocSignatureSpan">gulp-preprocess.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return toString;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+  context.src = file.path;
+  context.srcDir = opts.includeBase || path.dirname(file.path);
+  context.NODE_ENV = context.NODE_ENV || &#x27;development&#x27;;
+
+  extension = _.isEmpty(opts.extension) ? getExtension(context.src) : opts.extension;
+
+  contents = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+  contents = pp.preprocess(contents, context, extension);
+  file.contents = new Buffer(contents);
+
+  callback(null, file);
+}
+
+return map(ppStream);
+...</pre></li>
+    </ul>
+
 
 </div>
 
