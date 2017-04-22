@@ -1,9 +1,14 @@
-# api documentation for  [gulp-preprocess (v2.0.0)](http://github.com/jas/gulp-preprocess)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-preprocess.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-preprocess) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess)
+# npmdoc-gulp-preprocess
+
+#### api documentation for  [gulp-preprocess (v2.0.0)](http://github.com/jas/gulp-preprocess)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-preprocess.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-preprocess) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-preprocess)
+
 #### Gulp plugin to preprocess HTML, JavaScript, and other files based on custom context or environment configuration
 
 [![NPM](https://nodei.co/npm/gulp-preprocess.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-preprocess)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/screenCapture.buildCi.browser.apidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-gulp-preprocess/build/screenCapture.npmPackageListing.svg)
 
@@ -81,83 +86,9 @@
     "scripts": {
         "test": "mocha --reporter spec"
     },
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "bin": {}
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module gulp-preprocess](#apidoc.module.gulp-preprocess)
-1.  [function <span class="apidocSignatureSpan"></span>gulp-preprocess (options)](#apidoc.element.gulp-preprocess.gulp-preprocess)
-1.  [function <span class="apidocSignatureSpan">gulp-preprocess.</span>toString ()](#apidoc.element.gulp-preprocess.toString)
-
-
-
-# <a name="apidoc.module.gulp-preprocess"></a>[module gulp-preprocess](#apidoc.module.gulp-preprocess)
-
-#### <a name="apidoc.element.gulp-preprocess.gulp-preprocess"></a>[function <span class="apidocSignatureSpan"></span>gulp-preprocess (options)](#apidoc.element.gulp-preprocess.gulp-preprocess)
-- description and source-code
-```javascript
-gulp-preprocess = function (options) {
-  var opts    = _.merge({}, options);
-  var context = _.merge({}, process.env, opts.context);
-
-  function ppStream(file, callback) {
-    var contents, extension;
-
-    // TODO: support streaming files
-    if (file.isNull()) return callback(null, file); // pass along
-    if (file.isStream()) return callback(new Error("gulp-preprocess: Streaming not supported"));
-
-    context.src = file.path;
-    context.srcDir = opts.includeBase || path.dirname(file.path);
-    context.NODE_ENV = context.NODE_ENV || 'development';
-
-    extension = _.isEmpty(opts.extension) ? getExtension(context.src) : opts.extension;
-
-    contents = file.contents.toString('utf8');
-    contents = pp.preprocess(contents, context, extension);
-    file.contents = new Buffer(contents);
-
-    callback(null, file);
-  }
-
-  return map(ppStream);
-}
-```
-- example usage
-```shell
-n/a
-```
-
-#### <a name="apidoc.element.gulp-preprocess.toString"></a>[function <span class="apidocSignatureSpan">gulp-preprocess.</span>toString ()](#apidoc.element.gulp-preprocess.toString)
-- description and source-code
-```javascript
-toString = function () {
-    return toString;
-}
-```
-- example usage
-```shell
-...
-
-  context.src = file.path;
-  context.srcDir = opts.includeBase || path.dirname(file.path);
-  context.NODE_ENV = context.NODE_ENV || 'development';
-
-  extension = _.isEmpty(opts.extension) ? getExtension(context.src) : opts.extension;
-
-  contents = file.contents.toString('utf8');
-  contents = pp.preprocess(contents, context, extension);
-  file.contents = new Buffer(contents);
-
-  callback(null, file);
-}
-
-return map(ppStream);
-...
 ```
 
 
